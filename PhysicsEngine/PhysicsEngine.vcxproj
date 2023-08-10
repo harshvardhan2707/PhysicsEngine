@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\Walker.cpp" />
   </ItemGroup>
