@@ -14,11 +14,12 @@ int main() {
 	SDL_RenderClear(renderer);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	Walker* w = new Walker(640, 480);
-	Ball* b = new Ball(640 , 480 , 10, 1.0,0.0,0.0,1.0);
+	Ball* b = new Ball(640 , 480 , 10, 1.0,0.0,0.0,0.0);
 	bool quit = false;
 	SDL_Event e;
 	int i = 255, j = 255, k = 255;
 	bool pos = false;
+
 	while (!quit) {
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
@@ -41,9 +42,12 @@ int main() {
 		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		//SDL_RenderClear(renderer);
 		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		int mouseX, mouseY;
+		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+		b->mouse_acceleration(float(mouseX), float(mouseY));
 		b->render(renderer);
 		SDL_RenderPresent(renderer);
-		SDL_Delay(1);
+		SDL_Delay(10);
 		/*SDL_RenderPresent(renderer);
 		SDL_Delay(10);*/
 		//SDL_RenderClear(renderer);

@@ -27,7 +27,7 @@ public:
 		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		//SDL_RenderClear(renderer);
 		//SDL_SetRenderDrawColor(renderer, 255,255,255, 255);
-		SDL_RenderDrawPoint(renderer, location.x,location.y);
+		SDL_RenderDrawPoint(renderer, int(location.x),int(location.y));
 		//SDL_RenderPresent(renderer);
 		//SDL_Delay(1000);
 		//SDL_RenderClear(renderer);
@@ -37,6 +37,12 @@ public:
 	void step() {
 		speed = speed + acceleration;
 		location = location + speed;
+	}
+	void mouse_acceleration(float a,float b) {
+		PVector direction = PVector(a, b);
+		direction =direction- location;
+		direction = direction.normalize();
+		speed = direction;
 	}
 	void constraint() {
 		if (location.x > WIDTH || location.x < 0) {
@@ -49,5 +55,7 @@ public:
 		location.x = std::min(location.x, float(WIDTH));
 		location.y = std::max(location.y, 0.0f);
 		location.y = std::min(location.y, float(HEIGHT));
+		speed.x = std::min(speed.x, 5.0f);
+		speed.y = std::min(speed.y, 5.0f);
 	}
 };
