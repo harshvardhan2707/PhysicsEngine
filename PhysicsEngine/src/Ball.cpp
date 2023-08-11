@@ -2,41 +2,52 @@
 #include <SDL.h>
 #include <algorithm>
 #include <iostream>
+#include "PVector.cpp"
 class Ball {
 public:
-	int x, y, r, WIDTH, HEIGHT, x_speed, y_speed;
-	Ball(int WIDTH, int HEIGHT, int R,int x_speed,int y_speed) {
+	PVector location, speed, acceleration;
+	int WIDTH, HEIGHT, R;
+	Ball(int WIDTH=640, int HEIGHT=480, int R=0,float x_speed=0,float y_speed=0,float x_acc=0,float y_acc=0) {
 		this->WIDTH = WIDTH;
 		this->HEIGHT = HEIGHT;
-		r = R;
-		x = WIDTH / 2;
-		y = HEIGHT / 2;
-		this->x_speed = x_speed;
-		this->y_speed = y_speed;
+		location = PVector(float(WIDTH / 2), float(HEIGHT / 2));
+		speed = PVector(x_speed, y_speed);
+		this->R = R;
+		acceleration = PVector(x_acc, y_acc);
 	}
 	void render(SDL_Renderer* renderer) {
 		//SDL_RenderClear(renderer);
 		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		//for (float i = -R; i <= R; i += 0.1) {
+		//	for (float j = -R; j <= R; j += 0.1) {
+		//		if (i * i + j * j <= R * R)SDL_RenderDrawPoint(renderer, location.x + i, location.y + j);
+		//	}
+		//}
 		step();
-		for (int i = -r; i <= r; i++) {
-			for (int j = -r; j <= r; j++) {
-				if(i*i+j*j<r*r)
-					SDL_RenderDrawPoint(renderer, x + i, y + j);
-			}
-		}
-		//SDL_RenderDrawPoint(renderer, x, y);
+		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		//SDL_RenderClear(renderer);
+		//SDL_SetRenderDrawColor(renderer, 255,255,255, 255);
+		SDL_RenderDrawPoint(renderer, location.x,location.y);
+		//SDL_RenderPresent(renderer);
+		//SDL_Delay(1000);
+		//SDL_RenderClear(renderer);
 		constraint();
+		//std::cout << speed.x << " " << speed.y << "\n";
 	}
 	void step() {
-		x = x + x_speed;
-		y = y + y_speed;
+		speed = speed + acceleration;
+		location = location + speed;
 	}
 	void constraint() {
-		if (x + r > WIDTH || x - r < 0)x_speed = -x_speed;
-		else if (y + r > HEIGHT || y - r < 0)y_speed = -y_speed;
-		x = std::max(r, x);
-		x = std::min(WIDTH - r, x);
-		y = std::max(r, y);
-		y = std::min(HEIGHT - r, y);
+		if (location.x > WIDTH || location.x < 0) {
+			speed.x = -speed.x; std::cout << speed.x << " "<<speed.y << "\n";
+		}
+		else if (location.y > HEIGHT || location.y < 0) {
+			speed.y = -speed.y; std::cout << speed.x << " " << speed.y << "\n";
+		}
+		location.x = std::max(location.x, 0.0f);
+		location.x = std::min(location.x, float(WIDTH));
+		location.y = std::max(location.y, 0.0f);
+		location.y = std::min(location.y, float(HEIGHT));
 	}
 };

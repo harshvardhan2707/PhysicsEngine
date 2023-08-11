@@ -14,7 +14,12 @@ public:
 	}
 	void render(SDL_Renderer* renderer) {
 		step();
+		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		//SDL_RenderClear(renderer);
+		//SDL_SetRenderDrawColor(renderer, 255,255,255, 255);
 		SDL_RenderDrawPoint(renderer, x, y);
+		SDL_RenderPresent(renderer);
+		SDL_Delay(10);
 	}
 	void step() {
 		float num = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);

@@ -6,17 +6,19 @@
 using namespace std;
 int main() {
 	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);;
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(640 , 480 , 0, &window, &renderer);
-	SDL_RenderSetScale(renderer, 4, 4);
+	SDL_RenderSetScale(renderer, 1,1);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	Walker* w = new Walker(640/4, 480/4);
-	Ball* b = new Ball(640/4, 480/4, 2, 1, 1);
+	Walker* w = new Walker(640, 480);
+	Ball* b = new Ball(640 , 480 , 10, 1.0,0.0,0.0,1.0);
 	bool quit = false;
 	SDL_Event e;
+	int i = 255, j = 255, k = 255;
+	bool pos = false;
 	while (!quit) {
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
@@ -27,13 +29,24 @@ int main() {
 			}
 		}
 		//SDL_RenderDrawPoint(renderer, w->x, w->y);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderClear(renderer);
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		//SDL_RenderClear(renderer);
+		//if (j == 0)pos = true;
+		//else if (j == 255)pos = false;
+		//if (pos)j = j + 1;
+		//else j = j - 1;
+		////j = (j + 1) % 255;
+		////k = (k + 1) % 255;
+		//SDL_SetRenderDrawColor(renderer, i,j,k, 255);
+		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		//SDL_RenderClear(renderer);
+		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		b->render(renderer);
 		SDL_RenderPresent(renderer);
-		SDL_Delay(10);
-		SDL_RenderClear(renderer);
+		SDL_Delay(1);
+		/*SDL_RenderPresent(renderer);
+		SDL_Delay(10);*/
+		//SDL_RenderClear(renderer);
 		//w->step();
 	}
 	//Ball* b=new Ball()

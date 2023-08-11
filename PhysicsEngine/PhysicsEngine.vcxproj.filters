@@ -24,10 +24,8 @@
     <ClCompile Include="src\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Walker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="src\PVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
