@@ -2,15 +2,15 @@
 #include <SDL.h>
 #include <algorithm>
 #include <iostream>
-#include "PVector.cpp"
+#include "PVector.h"
 class Ball {
 public:
 	PVector location, speed, acceleration;
 	int WIDTH, HEIGHT, R;
-	Ball(int WIDTH=640, int HEIGHT=480, int R=0,float x_speed=0,float y_speed=0,float x_acc=0,float y_acc=0) {
+	Ball(int WIDTH=640, int HEIGHT=480, int R=0,double x_speed=0, double y_speed=0, double x_acc=0, double y_acc=0) {
 		this->WIDTH = WIDTH;
 		this->HEIGHT = HEIGHT;
-		location = PVector(float(WIDTH / 2), float(HEIGHT / 2));
+		location = PVector(double(WIDTH / 2), double(HEIGHT / 2));
 		speed = PVector(x_speed, y_speed);
 		this->R = R;
 		acceleration = PVector(x_acc, y_acc);
@@ -42,7 +42,7 @@ public:
 		PVector direction = PVector(a, b);
 		direction =direction- location;
 		direction = direction.normalize();
-		speed = direction;
+		//speed = direction;
 	}
 	void constraint() {
 		if (location.x > WIDTH || location.x < 0) {
@@ -51,11 +51,11 @@ public:
 		else if (location.y > HEIGHT || location.y < 0) {
 			speed.y = -speed.y; std::cout << speed.x << " " << speed.y << "\n";
 		}
-		location.x = std::max(location.x, 0.0f);
-		location.x = std::min(location.x, float(WIDTH));
-		location.y = std::max(location.y, 0.0f);
-		location.y = std::min(location.y, float(HEIGHT));
-		speed.x = std::min(speed.x, 5.0f);
-		speed.y = std::min(speed.y, 5.0f);
+		location.x = std::max(location.x, 0.0);
+		location.x = std::min(location.x, double(WIDTH));
+		location.y = std::max(location.y, 0.0);
+		location.y = std::min(location.y, double(HEIGHT));
+		//speed.x = std::min(speed.x, 5.0f);
+		//speed.y = std::min(speed.y, 5.0f);
 	}
 };

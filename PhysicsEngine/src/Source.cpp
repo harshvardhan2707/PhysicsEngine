@@ -3,6 +3,7 @@
 #include "Walker.cpp"
 #include <iostream>
 #include "Ball.cpp"
+#include "Mover.cpp"
 using namespace std;
 int main() {
 	SDL_Window* window = nullptr;
@@ -14,17 +15,18 @@ int main() {
 	SDL_RenderClear(renderer);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	Walker* w = new Walker(640, 480);
-	Ball* b = new Ball(640 , 480 , 10, 1.0,0.0,0.0,0.0);
+	Ball* b = new Ball(640 , 480 , 1, 1,2.0,0.0,0.1);
+	Mover* m[] = { new Mover() };
 	bool quit = false;
 	SDL_Event e;
 	int i = 255, j = 255, k = 255;
 	bool pos = false;
-
+	m[0]->applyForce(1, 0);
 	while (!quit) {
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
 				quit = true;
-			}
+			}	
 			if (e.type == SDL_KEYDOWN) { // Check for key press
 				quit = true;
 			}
@@ -42,10 +44,11 @@ int main() {
 		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		//SDL_RenderClear(renderer);
 		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-		int mouseX, mouseY;
-		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		b->mouse_acceleration(float(mouseX), float(mouseY));
-		b->render(renderer);
+		/*int mouseX, mouseY;
+		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);*/
+		//b->mouse_acceleration(float(mouseX), float(mouseY));
+		m[0]->render(renderer);
+		
 		SDL_RenderPresent(renderer);
 		SDL_Delay(10);
 		/*SDL_RenderPresent(renderer);

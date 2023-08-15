@@ -142,9 +142,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\Mover.cpp" />
     <ClCompile Include="src\PVector.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\Walker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\PVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
